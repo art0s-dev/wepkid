@@ -1,5 +1,6 @@
 version: "3"
 services:
+//TODO Add Nginx Unit
   web:
     image: nginx:latest
     ports:
@@ -27,6 +28,7 @@ services:
     volumes:
       - ./src:/src
 
+//TODO Add Redis
   mysql:
     image: mariadb:latest
     env_file:
@@ -40,6 +42,7 @@ services:
       - mysqldata:/var/lib/mysql
     ports:
       - 3306:3306
+//TODO Add Jenkins
 
 volumes:
   mysqldata: {}
