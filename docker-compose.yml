@@ -7,22 +7,39 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
       - ./src:/src
+    depends_on:
+      - php
+
   php:
     build:
       context: .
-      dockerfile: PHP.Dockerfile
+      dockerfile: php.Dockerfile
     volumes:
       - ./src:/src
+      - ./vendor:/vendor
+
+  composer:
+    image: composer:latest
+    command: ["composer", "install"]
+    build:
+      context: .
+      dockerfile: composer.Dockerfile
+    volumes:
+      - ./src:/src
+
   mysql:
     image: mariadb:latest
+    env_file:
+      - ./config.env
     environment:
-      MYSQL_ROOT_PASSWORD: "secret"
-      MYSQL_USER: "tutorial"
-      MYSQL_PASSWORD: "secret"
-      MYSQL_DATABASE: "tutorial"
+      MYSQL_ROOT_PASSWORD: "MYSQL_ROOT_PASSWORD:$$(MYSQL_ROOT_PASSWORD)"
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      MYSQL_DATABASE:
     volumes:
       - mysqldata:/var/lib/mysql
     ports:
       - 3306:3306
+
 volumes:
   mysqldata: {}
