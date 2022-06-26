@@ -1,6 +1,6 @@
 <?php
 
-namespace Wepkid\test;
+namespace Wepkid\core;
 
 class test{
 

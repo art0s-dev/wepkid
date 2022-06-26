@@ -2,16 +2,12 @@
 
 #Declare some environment specifications for better debugging
 declare(strict_types=1);
-
-
-
 error_reporting(E_ERROR | E_WARNING | E_ALL);
 
 #Get Autoloader
 require dirname(dirname(dirname(__FILE__))) . './vendor/autoload.php';
 
-use Wepkid\test\test;
-
+use Wepkid\core\test;
 $test = new test();
 
 // echo '<pre>';
